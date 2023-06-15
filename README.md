@@ -2,8 +2,8 @@
 ## Repository that stores the SQL exercises
 
 ## - [X] Drilling Final
-## - [ ] Exercise 1
-## - [ ] Exercise 2
+## - [ ] Exercise 1  (incomplete exercise)
+## - [ ] Script-1 (Database of studies, in .sql and .png format)
 
 
 <!-- Para poder insertar una imagen se ocupa este formato
