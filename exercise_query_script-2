@@ -1,0 +1,23 @@
+--Listar nombre y telefono de los usuarios
+
+select nombre, telefono from usuarios;
+
+select * from usuarios --muestra todo
+
+--Listar los nombres que tengan un telefono marca nokia
+select nombre, marca from usuarios where marca ='NOKIA';
+
+--Listar el login y telefono de los usuarios con compañia que no sea TELCEL
+
+select usuario, telefono, compañia from usuarios where compañia <>'TELCEL';
+
+--Listar nombre, mail y telefono de las personas cuya marca de telefono sean SAMSUNG, MOTOROLA o LG
+
+select nombre, email, telefono,marca from usuarios where marca in('SAMSUNG','MOTOROLA','LG')
+
+--Listar nombre y compañia de los usuarios femeninos y cuyo saldo sea mayor a 13'. Ordenar alfabeticamente por nombre
+
+select nombre, compañia from usuarios where sexo ='M' and saldo > 130 order by nombre;
+
+--Listar nombre e email de usuarios nivel 3, orden en decrecimiento según nombre
+select nombre, email from usuarios where nivel = 3 order by nombre desc
