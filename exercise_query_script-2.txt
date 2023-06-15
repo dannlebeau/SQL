@@ -21,3 +21,19 @@ select nombre, compañia from usuarios where sexo ='M' and saldo > 130 order by 
 
 --Listar nombre e email de usuarios nivel 3, orden en decrecimiento según nombre
 select nombre, email from usuarios where nivel = 3 order by nombre desc
+--Listar usuario, nombre y nivel de los usuarios que tienen correo gmail o live.
+select usuario, nombre, nivel, email from usuarios where email like '%gmail.com' or email like '%live.com';
+
+--Contar el numero de usuarios por compañia
+select compañia, count(idx) from usuarios group by compañia;
+
+select sexo, count(idx) from usuarios group by sexo;
+
+select nivel, count (idx) from usuarios group by nivel order by nivel;
+
+--Calcular la suma de los saldos de los usuarios de la compañia TELCEL
+select sum(saldo) from usuarios where compañia = 'TELCEL';
+
+--Cuantas mujeres tiene el telefono con terminal 1
+select count(idx) from usuarios where sexo ='M' and telefono like '%1';
+
