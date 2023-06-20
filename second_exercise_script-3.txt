@@ -1,0 +1,66 @@
+select now ();
+
+select Venta_NumeroFactura,
+sum(unitario * cantidad) as Subtotal
+from detalleventa d
+group by Venta_NumeroFactura;
+
+select*
+from venta v
+inner join (
+	select Venta_NumeroFactura,
+	sum(unitario * cantidad) as TotalVenta
+	from detalleventa d
+	group by Venta_NumeroFactura
+) detalle on Venta_NumeroFactura = numerofactura
+where to_number(to_char(fechaventa,'YYYY'), 'FM9G999D99S') = 2020;
+
+
+select to_number(to_char(fechaventa,'YYYY'), 'FM9G999D99S') as Periodo, 
+'' as NombreCliente,
+0 as CantidadCompras,
+0 as Total,
+'' as Clasificacion
+from venta v
+inner join (
+	select Venta_NumeroFactura,
+	sum(unitario * cantidad) as TotalVenta
+	from detalleventa d
+	group by Venta_NumeroFactura
+) detalle on Venta_NumeroFactura = numerofactura
+where to_number(to_char(fechaventa,'YYYY'), 'FM9G999D99S') = 2020;
+
+
+select to_number(to_char(fechaventa,'YYYY'), 'FM9G999D99S') as Periodo, 
+'' as NombreCliente,
+count(*) as CantidadCompras,
+sum(TotalVenta) as Total,
+'' as Clasificacion
+from venta v
+inner join (
+	select Venta_NumeroFactura,
+	sum(unitario * cantidad) as TotalVenta
+	from detalleventa d
+	group by Venta_NumeroFactura
+) detalle on Venta_NumeroFactura = numerofactura
+where to_number(to_char(fechaventa,'YYYY'), 'FM9G999D99S') = 2020
+group by to_number(to_char(fechaventa,'YYYY'), 'FM9G999D99S');
+
+
+select to_number(to_char(fechaventa,'YYYY'), 'FM9G999D99S') as Periodo, 
+nombre as NombreCliente,
+count(*) as CantidadCompras,
+sum(TotalVenta) as Total,
+case when sum(TotalVenta) <= 150000 then 'Ocasional'
+when sum(TotalVenta) <= 50000000 then 'Gold'
+else 'Premium' end as Clasificacion
+from venta v
+inner join (
+	select Venta_NumeroFactura,
+	sum(unitario * cantidad) as TotalVenta
+	from detalleventa d
+	group by Venta_NumeroFactura
+) detalle on Venta_NumeroFactura = numerofactura
+inner join cliente on rut = cliente_rut
+where to_number(to_char(fechaventa,'YYYY'), 'FM9G999D99S') = 2020
+group by to_number(to_char(fechaventa,'YYYY'), 'FM9G999D99S'), nombre;
