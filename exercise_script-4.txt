@@ -1,0 +1,97 @@
+--Consulta con Joins
+
+--1.Obtener todos los libros respectivos con sus autores
+select libros.titulo, autores.nombre
+from libros
+join autores on libros.autor_id = autores.id;
+
+--2.Obtener todos los comentarios de un libro especifico con el nombre del libro y el autor
+select libros.titulo, autores.nombre, comentarios.comentario 
+from comentarios 
+join libros on comentarios.libro_id = libros.id 
+join autores on libros.autor_id = autores.id
+where libros.id = 1;
+
+--3.Obtener todos los libros escritos por Gabriel Garcia Marquez
+select libros.titulo, autores.nombre 
+from libros 
+join autores on libros.autor_id = autores.id 
+where autores.nombre = 'Gabriel García Márquez';
+
+--4.Obtener el número total de comentarios por libro
+select libros.titulo, count(comentarios.id) as total_comentarios
+from libros 
+left join comentarios on libros.id = comentarios.libro_id 
+group by libros.titulo;
+
+--5.Obtener los libros y sus respectivos autores que tienen un precio mayor a $15.
+select libros.titulo, autores.nombre 
+from libros
+join autores on libros.autor_id = autores.id 
+where libros.precio > 15.00;
+
+--6.Obtener los autores y la cantidad de libros que han escrito
+select autores.nombre, count(libros.id) as total_libros
+from autores
+left join libros on autores.id = libros.autor_id 
+group by autores.nombre;
+
+--7.Obtener los libros y sus comentarios que contienen la palabra "Excelente"
+select libros.titulo, comentarios.comentario
+from libros
+join comentarios on libros.id = comentarios.libro_id 
+where comentarios.comentario ilike '%excelente%';
+
+--8.Obtener el autor con la mayor cantidad de libros
+select autores.nombre, count(libros.id) as total_libros
+from autores
+join libros on autores.id = libros.autor_id 
+group by autores.nombre 
+order by total_libros desc
+
+--9.Obtener el precio promedio de los libros
+select avg(precio) as precio_promedio
+from libros;
+
+--10.Obtener los libros que tienen comentarios asociados
+select libros.titulo
+from libros
+join comentarios on libros.id = comentarios.libro_id;
+
+--11.Obtener los libros que NO tienen comentarios asociados
+select libros.titulo
+from libros
+left join comentarios on libros.id = comentarios.libro_id
+where comentarios.id is null;
+
+--12.Obtener los libros y la cantidad de comentarios que tienen
+select libros.titulo, count(comentarios.id) as total_comentarios
+from libros
+left join comentarios on libros.id = comentarios.libro_id 
+group by libros.titulo;
+
+--13.Obtener los autores y sus libros ordenados alfabeticamente por el titulo del libro
+select autores.nombre, libros.titulo 
+from autores 
+join libros on autores.id = libros.autor_id
+order by libros.titulo asc;
+
+--14.Obtener los libros que tienen un precio superior al promedio de todos los libros
+select libros.titulo, libros.precio
+from libros
+where libros.precio > (select avg(precio) from libros);
+
+--15.Obtener el autor con el libro mas caro
+select a.nombre as autor, l.titulo as libro, l.precio
+from autores a
+join libros l on a.id = l.autor_id 
+where l.precio = (
+	select max(precio)
+	from libros
+	)
+
+--16.Obtener los libros y sus comentarios ordenados por la fecha de creacion del comentario de forma descendente
+	select l.titulo as libro, c.comentario, c.fecha
+	from libros l
+	join comentarios c on l.id = c.libro_id
+	order by c.fecha desc;
