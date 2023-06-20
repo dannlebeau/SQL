@@ -2,8 +2,19 @@
 ## Repository that stores the SQL exercises
 
 ## - [X] Drilling Final
-## - [ ] Exercise 1  (incomplete exercise)
-## - [ ] Script-1 (Database of studies, in .sql and .png format)
+
+## Script
+### - [ ] Script-1 (Database of studies, in .sql and .png format)
+### - [ ] Script-2
+### - [ ] Script-3
+### - [ ] Script-4
+
+## Exercise
+### - [ ] Exercise 1  (related to Script-1) 
+### - [ ] Exercise_query_script-2.txt (related to Script-2)
+### - [ ] Exercise_script-3.txt (related to Script-3)
+### - [ ] Exercise_script-4.txt (related to Script-4)
+
 
 
 <!-- Para poder insertar una imagen se ocupa este formato
