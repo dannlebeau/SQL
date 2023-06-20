@@ -1,0 +1,28 @@
+--Union
+select nombre from  cliente
+union all
+select nombre from proveedor
+
+--Intersect
+select nombre from cliente c 
+intersect
+select nombre from proovedor
+
+--Consulta
+select numerofactura, fechaventa, cantidad * unitario as subtotal
+from venta v
+inner join detalleventa d 
+on v.numerofactura = d.venta_numerofactura;
+
+select numerofactura, fechaventa, sum(cantidad * unitario) as TotalVentas
+from venta v
+inner join detalleventa d 
+on v.numerofactura = d.venta_numerofactura
+group by numerofactura, fechaventa;
+
+select numerofactura, fechaventa, sum(cantidad * unitario) as TotalVentas
+from venta v
+inner join detalleventa d 
+on v.numerofactura = d.venta_numerofactura
+where to_number(to_char(fechaventa,'YYYY'), 'FM9G999D99S') = 2020
+group by numerofactura, fechaventa;
